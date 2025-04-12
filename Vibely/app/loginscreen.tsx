@@ -21,7 +21,7 @@ export function LoginScreen() {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" />
       <LinearGradient
-        colors={['#FF5722', '#FF8A65', '#FFB74D']}
+        colors={['#FF5722', '#FFB74D']}
         style={{ flex: 1 }}>
         <KeyboardAvoidingView 
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -168,7 +168,7 @@ export function LoginScreen() {
               position: 'absolute', 
               bottom: 0, 
               width: '100%', 
-              height: 80, 
+              height: 100, 
               zIndex: -1 
             }}>
               <Image
@@ -185,7 +185,9 @@ export function LoginScreen() {
                 resizeMode="cover"
               />
             </View>
+            
           )}
+
         </KeyboardAvoidingView>
       </LinearGradient>
     </SafeAreaView>

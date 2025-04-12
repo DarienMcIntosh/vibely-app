@@ -25,7 +25,7 @@ export default function App() {
 function SplashScreen() {
   return (
     <LinearGradient
-      colors={['#FF5722', '#FF8A65', '#FFB74D']}
+      colors={['#FF5722', '#FFB74D']}
       style={{ flex: 1 }}
     >
       <View className="flex-1 justify-center items-center">
