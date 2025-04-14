@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
@@ -9,13 +9,37 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  // Monitor keyboard visibility
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    // Clean up listeners
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -27,7 +51,10 @@ export function LoginScreen() {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}
         >
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <ScrollView 
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+          >
             <View style={{ flex: 1, paddingHorizontal: 32, justifyContent: 'center' }}>
               
               {/* Logo and form section */}
@@ -110,7 +137,7 @@ export function LoginScreen() {
                   </View>
                   
                   {/* Social Login Buttons */}
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 32 }}>
                     <TouchableOpacity 
                       style={{ 
                         flexDirection: 'row', 
@@ -162,14 +189,11 @@ export function LoginScreen() {
             </View>
           </ScrollView>
           
-          {/* Bottom section with crowd silhouette - only visible when keyboard is not shown */}
-          {Platform.OS === 'ios' ? (
+          {/* Bottom section with crowd silhouette - only visible when keyboard is NOT shown */}
+          {!keyboardVisible && (
             <View style={{ 
-              position: 'absolute', 
-              bottom: 0, 
-              width: '100%', 
-              height: 100, 
-              zIndex: -1 
+              width: '100%',
+              height: Platform.OS === 'ios' ? 100 : 120
             }}>
               <Image
                 source={require('../assets/images/crowd.png')}
@@ -177,15 +201,6 @@ export function LoginScreen() {
                 resizeMode="cover"
               />
             </View>
-          ) : (
-            <View style={{ width: '100%' }}>
-              <Image
-                source={require('../assets/images/crowd.png')}
-                style={{ width: '100%', height: 120, opacity: 0.3 }}
-                resizeMode="cover"
-              />
-            </View>
-            
           )}
 
         </KeyboardAvoidingView>
