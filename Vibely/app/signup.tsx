@@ -17,13 +17,14 @@ import { useNavigation } from '@react-navigation/native';
 import { Link } from 'expo-router';
 
 
-export default function LoginScreen() {
+export default function SignupScreen() {
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const navigation = useNavigation();
 
-  // Monitor keyboard visibility
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -38,7 +39,6 @@ export default function LoginScreen() {
       }
     );
 
-    // Clean up listeners
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
@@ -78,6 +78,22 @@ export default function LoginScreen() {
                 
                 {/* Form */}
                 <View style={{ width: '100%' }}>
+                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Email</Text>
+                  <TextInput
+                    style={{ 
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                      backgroundColor: 'white', 
+                      borderRadius: 6, 
+                      padding: 12, 
+                      marginBottom: 18
+                    }}
+                    placeholder=""
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                  />
+                  
                   <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Username</Text>
                   <TextInput
                     style={{ 
@@ -85,11 +101,12 @@ export default function LoginScreen() {
                       backgroundColor: 'white', 
                       borderRadius: 6, 
                       padding: 12, 
-                      marginBottom: 16 
+                      marginBottom: 18 
                     }}
                     placeholder=""
                     value={username}
                     onChangeText={setUsername}
+                    autoCapitalize="none"
                   />
                   
                   <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Password</Text>
@@ -99,11 +116,26 @@ export default function LoginScreen() {
                       backgroundColor: 'white', 
                       borderRadius: 6, 
                       padding: 12, 
-                      marginBottom: 35 
+                      marginBottom: 18
                     }}
                     placeholder=""
                     value={password}
                     onChangeText={setPassword}
+                    secureTextEntry
+                  />
+                  
+                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Confirm Password</Text>
+                  <TextInput
+                    style={{ 
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                      backgroundColor: 'white', 
+                      borderRadius: 6, 
+                      padding: 12, 
+                      marginBottom: 34 
+                    }}
+                    placeholder=""
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
                     secureTextEntry
                   />
                   
@@ -116,7 +148,7 @@ export default function LoginScreen() {
                       marginBottom: 16 
                     }}
                   >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Login</Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Sign Up</Text>
                   </TouchableOpacity>
                   
                   <View style={{ 
@@ -125,74 +157,12 @@ export default function LoginScreen() {
                     justifyContent: 'center', 
                     marginBottom: 24 
                   }}>
-                    <Text style={{ color: 'white' }}>First Time Here? </Text>
-                    <Link href="/signup" asChild>
+                    <Text style={{ color: 'white' }}>Already have an account? </Text>
+                    <Link href="/loginscreen" asChild>
                     <TouchableOpacity>
-                      <Text style={{ color: 'black', fontWeight: 'bold' }}>Sign Up</Text>
+                      <Text style={{ color: 'black', fontWeight: 'bold' }}>Login</Text>
                     </TouchableOpacity>
                   </Link>
-                  </View>
-                  
-                  {/* Divider */}
-                  <View style={{ 
-                    flexDirection: 'row', 
-                    alignItems: 'center', 
-                    marginBottom: 24 
-                  }}>
-                    <View style={{ flex: 1, height: 1, backgroundColor: 'white', opacity: 0.5 }} />
-                    <Text style={{ marginHorizontal: 16, color: 'black' }}>OR</Text>
-                    <View style={{ flex: 1, height: 1, backgroundColor: 'white', opacity: 0.5 }} />
-                  </View>
-                  
-                  {/* Social Login Buttons */}
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 32 }}>
-                    <TouchableOpacity 
-                      style={{ 
-                        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-                        flexDirection: 'row', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        backgroundColor: 'white', 
-                        borderRadius: 9999, 
-                        paddingVertical: 8, 
-                        paddingHorizontal: 16, 
-                        flex: 1, 
-                        marginRight: 8, 
-                        borderWidth: 1, 
-                        borderColor: '#E5E5E5' 
-                      }}
-                    >
-                      <Image
-                        source={require('../assets/images/google.png')}
-                        style={{ width: 24, height: 24 }}
-                        resizeMode="contain" 
-                      />
-                      <Text style={{ color: 'black', marginLeft: 4, fontSize: 12, }}>Login with Google</Text>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity 
-                      style={{ 
-                        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-                        flexDirection: 'row', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        backgroundColor: 'white', 
-                        borderRadius: 9999, 
-                        paddingVertical: 8, 
-                        paddingHorizontal: 16, 
-                        flex: 1, 
-                        marginLeft: 8, 
-                        borderWidth: 1, 
-                        borderColor: '#E5E5E5' 
-                      }}
-                    >
-                      <Image
-                        source={require('../assets/images/apple.png')}
-                        style={{ width: 24, height: 24 }}
-                        resizeMode="contain" 
-                      />
-                      <Text style={{ color: 'black', marginLeft: 4, fontSize: 12 }}>Login with Apple</Text>
-                    </TouchableOpacity>
                   </View>
                 </View>
               </View>

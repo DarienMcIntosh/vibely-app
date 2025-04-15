@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { LoginScreen } from './loginscreen';
+import { createStackNavigator } from '@react-navigation/stack'; // Import from the correct library
+import LoginScreen from './loginscreen';
+import SignupScreen from './signup';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading resources or initialization
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // 2 seconds splash screen
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -19,7 +22,12 @@ export default function App() {
     return <SplashScreen />;
   }
 
-  return <LoginScreen />;
+  return (
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+      </Stack.Navigator>
+  );
 }
 
 function SplashScreen() {
@@ -37,3 +45,5 @@ function SplashScreen() {
     </LinearGradient>
   );
 }
+
+export default App;
