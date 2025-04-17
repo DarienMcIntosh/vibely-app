@@ -65,15 +65,14 @@ export default function SignupScreen() {
               <View style={{ alignItems: 'center', marginTop: 24 }}>
                 {/* Logo */}
                 <View style={{ 
-                  backgroundColor: 'black', 
-                  borderRadius: 9999, 
-                  width: 96, 
-                  height: 96, 
                   alignItems: 'center', 
                   justifyContent: 'center', 
-                  marginBottom: 40 
                 }}>
-                  <Text style={{ color: '#FF5722', fontSize: 24, fontWeight: 'bold' }}>vibely</Text>
+                  <Image
+                    source={require('../assets/images/vibely.png')}
+                    style={{ width: 220, height: 220 }}
+                    resizeMode="contain"
+                  />
                 </View>
                 
                 {/* Form */}

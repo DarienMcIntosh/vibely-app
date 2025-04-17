@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'; // Import from t
 import LoginScreen from './loginscreen';
 import SignupScreen from './signup';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -37,10 +38,17 @@ function SplashScreen() {
       style={{ flex: 1 }}
     >
       <View className="flex-1 justify-center items-center">
-        <View className="bg-black rounded-full w-32 h-32 items-center justify-center mb-6">
-          <Text className="text-orange-500 text-3xl font-bold">vibely</Text>
+        {/* Logo */}
+        <View style={{ 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+        }}>
+        <Image
+        source={require('../assets/images/vibely.png')}
+        style={{ width: 250, height: 250 }}
+        resizeMode="contain"
+        />
         </View>
-        <ActivityIndicator size="large" color="#fff" />
       </View>
     </LinearGradient>
   );
