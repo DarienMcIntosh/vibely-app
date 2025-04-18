@@ -77,7 +77,7 @@ export default function LoginScreen() {
                 
                 {/* Form */}
                 <View style={{ width: '100%' }}>
-                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Username</Text>
+                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Username</Text>
                   <TextInput
                     style={{ 
                       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -91,14 +91,14 @@ export default function LoginScreen() {
                     onChangeText={setUsername}
                   />
                   
-                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Password</Text>
+                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Password</Text>
                   <TextInput
                     style={{ 
                       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
                       backgroundColor: 'white', 
                       borderRadius: 6, 
                       padding: 12, 
-                      marginBottom: 35 
+                      marginBottom: 15 
                     }}
                     placeholder=""
                     value={password}
@@ -106,6 +106,12 @@ export default function LoginScreen() {
                     secureTextEntry
                   />
                   
+                  <View style={{ alignSelf: 'flex-end', marginBottom: 20 }}>
+                    <TouchableOpacity>
+                      <Text style={{ color: 'black', fontWeight: 'bold', marginBottom: 20 }}>Forgot Password?</Text>
+                    </TouchableOpacity>
+                  </View>
+
                   <TouchableOpacity 
                     style={{ 
                       backgroundColor: 'black', 

@@ -77,7 +77,7 @@ export default function SignupScreen() {
                 
                 {/* Form */}
                 <View style={{ width: '100%' }}>
-                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Email</Text>
+                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Email</Text>
                   <TextInput
                     style={{ 
                       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -93,7 +93,7 @@ export default function SignupScreen() {
                     autoCapitalize="none"
                   />
                   
-                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Username</Text>
+                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Username</Text>
                   <TextInput
                     style={{ 
                       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -108,7 +108,7 @@ export default function SignupScreen() {
                     autoCapitalize="none"
                   />
                   
-                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Password</Text>
+                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Password</Text>
                   <TextInput
                     style={{ 
                       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -123,7 +123,7 @@ export default function SignupScreen() {
                     secureTextEntry
                   />
                   
-                  <Text style={{ color: 'white', marginBottom: 4, marginLeft: 4 }}>Confirm Password</Text>
+                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Confirm Password</Text>
                   <TextInput
                     style={{ 
                       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
