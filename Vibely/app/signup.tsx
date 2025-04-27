@@ -47,7 +47,7 @@ export default function SignupScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#1E1E1E" />
       <LinearGradient
         colors={['#FF5722', '#FFB74D']}
         style={{ flex: 1 }}>

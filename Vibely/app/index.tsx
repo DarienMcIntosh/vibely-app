@@ -6,6 +6,8 @@ import SignupScreen from './signup';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native';
 import SelectUser from './selectuser';
+import HomeScreen from './home';
+import EventOrganizerScreen from './eventorganizer';
 
 const Stack = createStackNavigator();
 
@@ -25,10 +27,12 @@ function App() {
   }
 
   return (
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="SelectUser" component={SelectUser} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="EventOrganizer" component={EventOrganizerScreen} />
       </Stack.Navigator>
   );
 }
