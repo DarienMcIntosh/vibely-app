@@ -94,7 +94,7 @@ export default function HomeScreen() {
                       <View style={{ position: 'relative' }}>
                         <Image
                             source={event.image}
-                            style={{ width: '100%', height: 170 }}
+                            style={{ width: '100%', height: 180 }}
                             resizeMode="cover"
                         />
                         
@@ -167,15 +167,21 @@ export default function HomeScreen() {
                     </View>
                 </View>
                 ))}
+                {/* Add extra padding at bottom to ensure content isn't hidden behind the nav */}
+                <View style={{ paddingBottom: 80 }} />
             </ScrollView>
             
-            {/* Bottom Tab Navigation */}
-            <View style={{ 
-                flexDirection: 'row', 
-                backgroundColor: '#000000',
-                paddingVertical: 12,
-                paddingBottom: Platform.OS === 'ios' ? 28 : 12
-            }}>
+            <LinearGradient
+                colors={['transparent', 'rgba(0,0,0,0.9)']}
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    flexDirection: 'row',
+                    paddingVertical: 12,
+                    
+                }}>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
                 <Image source={require('../assets/images/home.png')} style={{ width: 24, height: 24 }} />
                 </TouchableOpacity>
@@ -188,7 +194,7 @@ export default function HomeScreen() {
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
                 <Image source={require('../assets/images/profile.png')} style={{ width: 24, height: 24 }} />
                 </TouchableOpacity>
-            </View>
+            </LinearGradient>
         </LinearGradient>
     </SafeAreaView>
   );

@@ -93,21 +93,6 @@ export default function SignupScreen() {
                     autoCapitalize="none"
                   />
                   
-                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Username</Text>
-                  <TextInput
-                    style={{ 
-                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-                      backgroundColor: 'white', 
-                      borderRadius: 6, 
-                      padding: 12, 
-                      marginBottom: 18 
-                    }}
-                    placeholder=""
-                    value={username}
-                    onChangeText={setUsername}
-                    autoCapitalize="none"
-                  />
-                  
                   <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Password</Text>
                   <TextInput
                     style={{ 
@@ -115,26 +100,11 @@ export default function SignupScreen() {
                       backgroundColor: 'white', 
                       borderRadius: 6, 
                       padding: 12, 
-                      marginBottom: 18
+                      marginBottom: 42
                     }}
                     placeholder=""
                     value={password}
                     onChangeText={setPassword}
-                    secureTextEntry
-                  />
-                  
-                  <Text style={{ color: 'black', marginBottom: 4, marginLeft: 4 }}>Confirm Password</Text>
-                  <TextInput
-                    style={{ 
-                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-                      backgroundColor: 'white', 
-                      borderRadius: 6, 
-                      padding: 12, 
-                      marginBottom: 34 
-                    }}
-                    placeholder=""
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
                     secureTextEntry
                   />
                   
@@ -144,11 +114,73 @@ export default function SignupScreen() {
                       borderRadius: 9999, 
                       padding: 12, 
                       alignItems: 'center', 
-                      marginBottom: 16 
+                      marginBottom: 24
                     }}
                   >
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>Sign Up</Text>
                   </TouchableOpacity>
+
+                  {/* Divider */}
+                  <View style={{ 
+                    flexDirection: 'row', 
+                    alignItems: 'center', 
+                    marginBottom: 24 
+                  }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: 'white', opacity: 0.5 }} />
+                    <Text style={{ marginHorizontal: 16, color: 'black' }}>OR</Text>
+                    <View style={{ flex: 1, height: 1, backgroundColor: 'white', opacity: 0.5 }} />
+                  </View>
+                  
+                  {/* Social Login Buttons */}
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 32 }}>
+                    <TouchableOpacity 
+                      style={{ 
+                        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                        flexDirection: 'row', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        backgroundColor: 'white', 
+                        borderRadius: 9999, 
+                        paddingVertical: 8, 
+                        paddingHorizontal: 16, 
+                        flex: 1, 
+                        marginRight: 8, 
+                        borderWidth: 1, 
+                        borderColor: '#E5E5E5' 
+                      }}
+                    >
+                      <Image
+                        source={require('../assets/images/google.png')}
+                        style={{ width: 24, height: 24 }}
+                        resizeMode="contain" 
+                      />
+                      <Text style={{ color: 'black', marginLeft: 4, fontSize: 12, }}>Login with Google</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity 
+                      style={{ 
+                        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                        flexDirection: 'row', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        backgroundColor: 'white', 
+                        borderRadius: 9999, 
+                        paddingVertical: 8, 
+                        paddingHorizontal: 16, 
+                        flex: 1, 
+                        marginLeft: 8, 
+                        borderWidth: 1, 
+                        borderColor: '#E5E5E5' 
+                      }}
+                    >
+                      <Image
+                        source={require('../assets/images/apple.png')}
+                        style={{ width: 24, height: 24 }}
+                        resizeMode="contain" 
+                      />
+                      <Text style={{ color: 'black', marginLeft: 4, fontSize: 12 }}>Login with Apple</Text>
+                    </TouchableOpacity>
+                  </View>
                   
                   <View style={{ 
                     flexDirection: 'row', 
@@ -172,7 +204,8 @@ export default function SignupScreen() {
           {!keyboardVisible && (
             <View style={{ 
               width: '100%',
-              height: Platform.OS === 'ios' ? 100 : 120
+              height: Platform.OS === 'ios' ? 100 : 120,
+              zIndex: 1,
             }}>
               <Image
                 source={require('../assets/images/crowd.png')}
