@@ -305,6 +305,9 @@ nav {
 
 .organizer-text {
     flex: 1;
+    align-items: center;
+    margin-left: 100px;
+
 }
 
 .organizer-text ul {
