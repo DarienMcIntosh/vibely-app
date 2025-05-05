@@ -14,7 +14,7 @@ import { router } from 'expo-router';
 
 export default function SelectUserScreen() {
   const navigation = useNavigation();
-  const [selectedUserType, setSelectedUserType] = useState(null);
+  const [selectedUserType, setSelectedUserType] = useState<null | 'event-goer' | 'event-organizer'>(null);
 
   const handleEventGoerSelection = () => {
     setSelectedUserType('event-goer');
@@ -27,7 +27,7 @@ export default function SelectUserScreen() {
   const handleContinue = () => {
     if (selectedUserType === 'event-goer') {
       // Navigate to Home screen
-      router.replace('/home');
+      router.replace('/usercustomize');
     } else if (selectedUserType === 'event-organizer') {
       // Navigate to Event Organizer screen
       router.replace('/eventorganizer');

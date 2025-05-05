@@ -19,7 +19,6 @@ import { Link } from 'expo-router';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
