@@ -389,12 +389,13 @@ nav {
 
 .download-content {
     flex: 1;
+    margin-left: 100px;
 }
 
-.app-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
+.download-content p{
+    text-align: center;
+    color: var(--secondary-color);
+    font-weight: 500;
 }
 
 .download-image {
@@ -406,13 +407,15 @@ nav {
 .download-image img {
     max-width: 100%;
     height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
 }
 
 /* Footer */
 footer {
     background-color: var(--secondary-color);
     color: var(--white);
-    padding: 4rem 2rem 2rem;
+    padding: 2rem 2rem 2rem;
 }
 
 .footer-logo {
