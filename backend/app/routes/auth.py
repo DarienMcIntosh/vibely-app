@@ -1,31 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, Dict
-from app.services.auth_services import register_user, social_login
+from typing import Optional, List
+from app.schemas import RegisterRequest, SocialLoginRequest, UserTypeModel, LoginRequest
+from app.services.auth_services import register_user, social_login, login_user
 from app.services.profile_services import complete_attendee_profile
 from app.utils.jwt_handler import get_current_user_id
-from app.database import get_db
 from app.services.user_service import update_user_role
-from fastapi import Form
-from json import loads
-from typing import List
+from app.database import get_db
 
 router = APIRouter(prefix="/api", tags=["Authentication"])
-
-# ---------- MODELS ----------
-class RegisterRequest(BaseModel):
-    email: EmailStr
-    password: str
-
-class SocialLoginRequest(BaseModel):
-    id_token: str
-
-class UserTypeModel(BaseModel):
-    user_type: str = Field(..., description="Either 'event_goer' or 'event_organizer'")
-
-
-# ---------- ROUTES ----------
 
 @router.post("/register")
 def register(data: RegisterRequest, db: Session = Depends(get_db)):
@@ -51,12 +34,11 @@ async def update_attendee_profile(
     bio: Optional[str] = Form(None),
     city: str = Form(...),
     country: str = Form(...),
-    preferences: List[str]= Form(...),
+    preferences: List[str] = Form(...),
     profile_picture: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db),
     current_user_id: int = Depends(get_current_user_id)
 ):
-
     result = complete_attendee_profile(
         db=db,
         user_id=current_user_id,
@@ -69,8 +51,10 @@ async def update_attendee_profile(
         preferences=preferences,
         profile_picture=profile_picture
     )
-
-    
     if result["status"] == "error":
         raise HTTPException(status_code=400, detail=result["message"])
     return result
+
+@router.post("/login")
+def login(data: LoginRequest, db: Session = Depends(get_db)):
+    return login_user(db, data.identifier, data.password)

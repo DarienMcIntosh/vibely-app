@@ -14,7 +14,7 @@ def register_user(db: Session, email: str, password: str):
     hashed_pw = bcrypt.hash(password)
 
     user = User(
-        username=email.split("@")[0], #tempora username from email until usernm is provided
+        username=email.split("@")[0], #tempora username from email until username is provided
         email=email,
         hash_Password=hashed_pw,
         account_Status = "pending",
@@ -45,17 +45,47 @@ def social_login(db: Session, id_token: str):
 
     user = db.query(User).filter(User.email == email).first()
 
+    is_new_user = False  
     if not user:
         user = User(
             username=email.split("@")[0],
             email=email,
             auth_provider="auth0",
             user_Type="standard",
-            account_Status="active"
+            account_Status="pending"  
         )
         db.add(user)
         db.commit()
         db.refresh(user)
+        is_new_user = True 
+    token = create_access_token(data={"sub": str(user.user_ID)})
+    
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "user_id": user.user_ID,
+        "is_new_user": is_new_user 
+    }
+
+
+def login_user(db: Session, identifier: str, password: str):
+    user = db.query(User).filter(
+        (User.email == identifier) | (User.username == identifier)
+    ).first()
+
+    if not user or not bcrypt.verify(password, user.hash_Password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    if user.account_Status in ["banned", "deactivated"]:
+        raise HTTPException(status_code=403, detail=f"Account is {user.account_Status}")
 
     token = create_access_token(data={"sub": str(user.user_ID)})
-    return {"access_token": token, "token_type": "bearer"}
+
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "user_id": user.user_ID,
+        "user_type": user.user_Type,
+        "username": user.username,
+        "account_status": user.account_Status
+    }

@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from app.database import Base
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -19,3 +20,5 @@ class User(Base):
     date_Created = Column(DateTime(timezone=True), server_default=func.now())
     last_Login = Column(DateTime(timezone=True), onupdate=func.now())
     auth_provider = Column(String(50))
+
+    organizer = relationship("Organizer", back_populates="user", uselist=False)
