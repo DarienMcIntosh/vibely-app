@@ -87,11 +87,26 @@ export default function RSVPScreen() {
 
   const handleRSVP = (status: "interested" | "going") => {
     setRsvpStatus(status);
-    Alert.alert(
-      "RSVP Confirmation",
-      `You have marked yourself as ${status} for ${currentEvent.title}`,
-      [{ text: "OK" }]
-    );
+
+    // When interested is pressed, navigate to the ticket purchase screen
+    if (status === "interested") {
+      // Navigate to the TicketPurchaseScreen with all necessary event information
+      navigation.navigate("TicketPurchase", {
+        eventTitle: currentEvent.title,
+        eventDate: currentEvent.date,
+        eventMonth: currentEvent.month,
+        eventTime: "6AM - 3PM EST", // Since this isn't in your event object, could be added or fetched
+        eventLocation: eventDetails.location,
+        eventOrganizer: eventDetails.organizer,
+      });
+    } else {
+      // For other statuses, show the original alert
+      Alert.alert(
+        "RSVP Confirmation",
+        `You have marked yourself as ${status} for ${currentEvent.title}`,
+        [{ text: "OK" }]
+      );
+    }
   };
 
   return (
@@ -114,7 +129,7 @@ export default function RSVPScreen() {
             <Ionicons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
           <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
-            RSVP
+            Event Details
           </Text>
         </View>
 
@@ -155,10 +170,10 @@ export default function RSVPScreen() {
                 style={{
                   fontSize: 18,
                   fontWeight: "bold",
-                  marginBottom: 16,
                   textAlign: "center",
                   shadowColor: "#000",
                   shadowOffset: { width: 0, height: 1 },
+                  marginBottom: 40,
                 }}
               >
                 {currentEvent.title}
@@ -291,7 +306,7 @@ export default function RSVPScreen() {
                       marginBottom: 4,
                     }}
                   >
-                    Deadline:
+                    Deadline to RSVP:
                   </Text>
                   <Text
                     style={{
@@ -357,7 +372,7 @@ export default function RSVPScreen() {
                 <TouchableOpacity
                   style={{
                     backgroundColor:
-                      rsvpStatus === "interested" ? "#FF5722" : "#FF5722AA",
+                      rsvpStatus === "interested" ? "#ffe710e8" : "#FF5722",
                     borderRadius: 30,
                     paddingVertical: 15,
                     alignItems: "center",
@@ -366,7 +381,7 @@ export default function RSVPScreen() {
                   onPress={() => handleRSVP("interested")}
                 >
                   <Text
-                    style={{ color: "white", fontWeight: "bold", fontSize: 16 }}
+                    style={{ color: "black", fontWeight: "bold", fontSize: 16 }}
                   >
                     Interested
                   </Text>

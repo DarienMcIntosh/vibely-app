@@ -6,9 +6,11 @@ import EventOrganizerScreen from "./eventorganizer";
 import HomeScreen from "./home";
 import LoginScreen from "./loginscreen";
 import Map from "./map";
+import PaymentConfirmation from "./paymentconfirmation";
 import RSVP from "./rsvp";
 import SelectUser from "./selectuser";
 import SignupScreen from "./signup";
+import TicketPurchase from "./ticketpurchase";
 import Trending from "./trending";
 import UserCustomize from "./usercustomize";
 
@@ -43,6 +45,11 @@ function App() {
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Trending" component={Trending} />
       <Stack.Screen name="RSVP" component={RSVP} />
+      <Stack.Screen name="TicketPurchase" component={TicketPurchase} />
+      <Stack.Screen
+        name="PaymentConfirmation"
+        component={PaymentConfirmation}
+      />
     </Stack.Navigator>
   );
 }
