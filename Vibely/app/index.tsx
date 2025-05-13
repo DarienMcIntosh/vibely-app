@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack'; // Import from the correct library
-import LoginScreen from './loginscreen';
-import SignupScreen from './signup';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Image } from 'react-native';
-import SelectUser from './selectuser';
+import { createStackNavigator } from "@react-navigation/stack"; // Import from the correct library
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useEffect, useState } from "react";
+import { Image, View } from "react-native";
+import EventOrganizerScreen from "./eventorganizer";
+import HomeScreen from "./home";
+import LoginScreen from "./loginscreen";
+import Map from "./map";
+import PaymentConfirmation from "./paymentconfirmation";
+import RSVP from "./rsvp";
+import SelectUser from "./selectuser";
+import SignupScreen from "./signup";
+import TicketPurchase from "./ticketpurchase";
+import Trending from "./trending";
+import UserCustomize from "./usercustomize";
 
 const Stack = createStackNavigator();
 
@@ -25,31 +32,44 @@ function App() {
   }
 
   return (
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="SelectUser" component={SelectUser} />
-      </Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="RSVP"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="SelectUser" component={SelectUser} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="EventOrganizer" component={EventOrganizerScreen} />
+      <Stack.Screen name="UserCustomize" component={UserCustomize} />
+      <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="Trending" component={Trending} />
+      <Stack.Screen name="RSVP" component={RSVP} />
+      <Stack.Screen name="TicketPurchase" component={TicketPurchase} />
+      <Stack.Screen
+        name="PaymentConfirmation"
+        component={PaymentConfirmation}
+      />
+    </Stack.Navigator>
   );
 }
 
 function SplashScreen() {
   return (
-    <LinearGradient
-      colors={['#FF5722', '#FFB74D']}
-      style={{ flex: 1 }}
-    >
+    <LinearGradient colors={["#FF5722", "#FFB74D"]} style={{ flex: 1 }}>
       <View className="flex-1 justify-center items-center">
         {/* Logo */}
-        <View style={{ 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-        }}>
-        <Image
-        source={require('../assets/images/vibely.png')}
-        style={{ width: 250, height: 250 }}
-        resizeMode="contain"
-        />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            source={require("../assets/images/vibely.png")}
+            style={{ width: 250, height: 250 }}
+            resizeMode="contain"
+          />
         </View>
       </View>
     </LinearGradient>

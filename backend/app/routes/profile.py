@@ -1,11 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import Optional
-from app.schemas import UserProfileResponse
+from app.schemas import UserProfileResponse, OrganizerProfileViewResponse
 from app.utils.jwt_handler import get_current_user_id
 from app.database import get_db
-from app.services.profile_services import get_eventgoer_profile, update_eventgoer_profile, complete_organizer_profile
+from app.models.user import User
+from app.utils.auth_dependencies import get_current_user
+from app.services.profile_services import get_eventgoer_profile, update_eventgoer_profile, complete_organizer_profile, view_organizer_profile
 from typing import List
+
 
 
 router = APIRouter(prefix="/api", tags=["Profile"])
@@ -83,3 +86,16 @@ async def register_organizer_profile(
         raise HTTPException(status_code=400, detail=result["message"])
 
     return result
+
+
+@router.get("/organizer/profile", response_model=OrganizerProfileViewResponse)
+def get_my_organizer_profile(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    try:
+        return view_organizer_profile(db, current_user.user_ID)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+

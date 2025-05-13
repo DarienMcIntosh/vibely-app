@@ -8,3 +8,6 @@ __pycache__/
 firebase/*.json
 
 temp_uploads/
+
+__pycache__/
+*.pyc

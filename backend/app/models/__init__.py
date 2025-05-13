@@ -7,3 +7,5 @@ from app.models.saveditems import SavedItem
 from app.models.follows import Follow
 from app.models.eventcontent import EventContent
 from app.models.organizers import Organizer
+from app.models.rsvps import RSVP
+from app.models.eventreviews import EventReview

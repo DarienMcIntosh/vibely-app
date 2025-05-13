@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr, Field
-from datetime import date, time
+from datetime import date, time, datetime
 
 # -------- AUTH SCHEMAS --------
 class RegisterRequest(BaseModel):
@@ -106,3 +106,71 @@ class OrganizerProfileResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class RecurringEventPatternCreate(BaseModel):
+    frequency: str  # e.g. "daily", "weekly"
+    repeat_interval: Optional[int] = 1
+    days_of_week: Optional[List[str]] = None
+    day_of_month: Optional[int] = None
+    month_of_year: Optional[int] = None
+    start_date: date
+    end_date: Optional[date] = None
+    max_occurrences: Optional[int] = None
+
+class EventCreate(BaseModel):
+    event_type: str
+    event_name: str
+    event_location: Optional[str]
+    event_category: Optional[str]
+    celebrity: Optional[str]
+    event_date: date
+    start_time: time
+    end_time: Optional[time]
+    event_description: Optional[str]
+    is_free: Optional[bool] = False
+    is_paid: Optional[bool] = True
+    max_capacity: Optional[int]
+    is_recurring: Optional[bool] = False
+    recurring_pattern: Optional[RecurringEventPatternCreate] = None
+
+
+class EventSummary(BaseModel):
+    event_id: int
+    name: str
+    date: date
+    start_time: time
+    end_time: Optional[time]
+    status: str
+    thumbnail_url: Optional[str]  # from eventcontent
+    rsvp_count: int
+    like_count: int
+
+class OrganizerAnalytics(BaseModel):
+    total_followers: int
+    total_likes_last_7_days: int
+    total_rsvps_last_7_days: int
+    trust_score: int
+    trust_badge: Optional[str]  
+
+class OrganizerProfileViewResponse(BaseModel):
+    username: str
+    full_name: str
+    company_name: Optional[str]
+    business_description: Optional[str]
+    verification_status: str
+    profile_picture_url: Optional[str]
+    
+    analytics: OrganizerAnalytics
+    upcoming_events: List[EventSummary]
+    past_events: List[EventSummary]
+
+
+class FollowResponse(BaseModel):
+    follow_ID: int
+    follower_ID: int
+    following_ID: int
+    created_At: datetime
+
+    class Config:
+        from_attributes = True

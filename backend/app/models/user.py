@@ -22,3 +22,4 @@ class User(Base):
     auth_provider = Column(String(50))
 
     organizer = relationship("Organizer", back_populates="user", uselist=False)
+    interactions = relationship("EventInteraction", back_populates="user", cascade="all, delete-orphan")

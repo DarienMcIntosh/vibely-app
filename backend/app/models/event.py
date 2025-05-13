@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, Date, Time, Boolean, ForeignKey, TIMESTAMP
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.database import Base
 
 class Event(Base):
@@ -19,6 +20,7 @@ class Event(Base):
     is_Free = Column(Boolean, default=False)
     is_Paid = Column(Boolean, default=True)
     max_Capacity = Column(Integer)
-    created_At = Column(TIMESTAMP)
+    created_At = Column(TIMESTAMP, server_default=func.now(), nullable=False)
     event_Status = Column(String(20), default="upcoming")
     is_Recurring = Column(Boolean, default=False)
+    interactions = relationship("EventInteraction", back_populates="event", cascade="all, delete-orphan")

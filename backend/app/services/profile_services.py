@@ -1,10 +1,8 @@
 import os
 from datetime import date
 from typing import Optional, List
-
 from sqlalchemy.orm import Session
 from fastapi import UploadFile
-
 from app.utils.firebase import upload_file_to_firebase
 from app.utils.file_utils import save_temp_file, delete_temp_file, upload_and_store_file
 from app.models.user import User
@@ -19,8 +17,10 @@ from app.models.organizers import Organizer
 from app.models.trustscore import TrustScore
 from app.utils.certificate_utils import extract_business_name_and_reg_no
 from app.utils.orc_verifier import verify_with_orc
-
-
+from app.services.trustscore_services import calculate_trust_score, get_trust_badge
+from app.schemas import OrganizerAnalytics, OrganizerProfileViewResponse, EventSummary
+from app.models.likes import Like
+from datetime import datetime, timedelta
 
 # ---------- Attendee Profile Completion ----------
 def complete_attendee_profile(
@@ -155,7 +155,7 @@ async def complete_organizer_profile(
         organizer.verification_Status = "business_verified" if is_business_registered and is_verified else "pending"
         organizer.event_Types = event_types
         organizer.is_orc_verified = is_verified 
-        
+
         # --- Add trust score boost if verified ---
         if is_verified:
             existing_trust = db.query(TrustScore).filter(
@@ -312,3 +312,104 @@ def get_event(event: Event, db: Session):
         "description": event.event_Description,
         "media": media
     }
+
+
+def get_recent_engagement_counts(db, event_ids):
+    """
+    Returns total likes and RSVPs in the last 7 days for a list of event IDs.
+    """
+    seven_days_ago = datetime.utcnow() - timedelta(days=7)
+
+    total_recent_likes = db.query(Like).filter(
+        Like.entity_Type == "event",
+        Like.entity_ID.in_(event_ids),
+        Like.created_At >= seven_days_ago
+    ).count()
+
+    total_recent_rsvps = db.query(EventAttendee).filter(
+        EventAttendee.event_ID.in_(event_ids),
+        EventAttendee.registration_Time >= seven_days_ago
+    ).count()
+
+    return total_recent_likes, total_recent_rsvps
+
+
+def view_organizer_profile(db: Session, user_id: int) -> OrganizerProfileViewResponse:
+    organizer = db.query(Organizer).filter(Organizer.user_ID == user_id).first()
+    if not organizer:
+        raise Exception("Organizer profile not found")
+
+    user = db.query(User).filter(User.user_ID == user_id).first()
+    user_profile = db.query(UserProfile).filter(UserProfile.user_ID == user_id).first()
+
+    profile_pic_url = None
+    if user_profile and user_profile.profile_PictureID:
+        media = db.query(MediaAsset).filter(MediaAsset.asset_ID == user_profile.profile_PictureID).first()
+        profile_pic_url = media.cdn_URL if media else None
+
+    # Get trust score and badge
+    score = calculate_trust_score(db, user_id)
+    badge = get_trust_badge(score)
+
+    today = date.today()
+    all_events = db.query(Event).filter(Event.organizer_ID == organizer.organizer_ID).all()
+    event_ids = [event.event_ID for event in all_events]
+
+    # Get likes and rsvps in the last 7 days
+    recent_likes, recent_rsvps = get_recent_engagement_counts(db, event_ids)
+
+    upcoming_events = []
+    past_events = []
+
+    for event in all_events:
+        # Get primary content
+        media_thumb = db.query(EventContent).filter(
+            EventContent.event_ID == event.event_ID,
+            EventContent.content_Type == "primary"
+        ).first()
+
+        # Get the actual media URL from mediaassets table
+        thumbnail_url = None
+        if media_thumb:
+            asset = db.query(MediaAsset).filter(MediaAsset.asset_ID == media_thumb.asset_ID).first()
+            thumbnail_url = asset.cdn_URL if asset else None
+
+        rsvps = db.query(EventAttendee).filter(EventAttendee.event_ID == event.event_ID).count()
+        likes = db.query(Like).filter(Like.entity_ID == event.event_ID, Like.entity_Type == "event").count()
+
+        summary = EventSummary(
+            event_id=event.event_ID,
+            name=event.event_Name,
+            date=event.event_Date,
+            start_time=event.start_Time,
+            end_time=event.end_Time,
+            status=event.event_Status,
+            thumbnail_url=thumbnail_url,
+            rsvp_count=rsvps,
+            like_count=likes
+        )
+
+        if event.event_Date >= today:
+            upcoming_events.append(summary)
+        else:
+            past_events.append(summary)
+
+    analytics = OrganizerAnalytics(
+        total_followers=db.query(Follow).filter(Follow.following_ID == user_id).count(),
+        total_likes_last_7_days=recent_likes,
+        total_rsvps_last_7_days=recent_rsvps,
+        trust_score=score,
+        trust_badge=badge
+    )
+
+    return OrganizerProfileViewResponse(
+        username=user.username,
+        full_name=f"{user.first_Name} {user.last_Name}",
+        company_name=organizer.company_Name,
+        business_description=organizer.business_Description,
+        verification_status=organizer.verification_Status,
+        profile_picture_url=profile_pic_url,
+        analytics=analytics,
+        upcoming_events=upcoming_events,
+        past_events=past_events
+    )
