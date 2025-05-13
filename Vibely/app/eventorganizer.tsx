@@ -552,7 +552,7 @@ export default function EventOrganizerScreen() {
             text: "Welcome to Vibely!",
             onPress: () => {
               // Navigate to home screen
-              router.replace("/home");
+              router.replace("/organizerhome");
             },
           },
         ],
@@ -618,7 +618,7 @@ export default function EventOrganizerScreen() {
           <View style={styles.formContainer}>
             {/* Organizer Name Field */}
             <Text style={styles.label}>
-              Organizer Name: <Text style={styles.required}>*</Text>
+              Organizer Name: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View
               animation="fadeIn"
@@ -642,7 +642,7 @@ export default function EventOrganizerScreen() {
 
             {/* Username Field */}
             <Text style={styles.label}>
-              Username: <Text style={styles.required}>*</Text>
+              Username: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View
               animation="fadeIn"
@@ -667,7 +667,7 @@ export default function EventOrganizerScreen() {
 
             {/* Country Dropdown */}
             <Text style={styles.label}>
-              Country: <Text style={styles.required}>*</Text>
+              Country: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View animation="fadeIn" delay={200} duration={500}>
               <SearchableLocationDropdown
@@ -716,7 +716,7 @@ export default function EventOrganizerScreen() {
           <Animatable.View animation="fadeIn" delay={400} duration={500}>
             <Text style={styles.sectionTitle}>
               What type of events do you host?{" "}
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.required}></Text>
             </Text>
             <View style={styles.categoriesContainer}>
               <TouchableOpacity
@@ -827,7 +827,7 @@ export default function EventOrganizerScreen() {
           <Animatable.View animation="fadeIn" delay={500} duration={500}>
             <Text style={styles.sectionTitle}>
               How many events do you plan to organize in the next year?{" "}
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.required}></Text>
             </Text>
             <TouchableOpacity
               style={styles.selectContainer}
@@ -866,7 +866,7 @@ export default function EventOrganizerScreen() {
           <Animatable.View animation="fadeIn" delay={600} duration={500}>
             <Text style={styles.sectionTitle}>
               On average, how big are your events?{" "}
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.required}></Text>
             </Text>
             <TouchableOpacity
               style={styles.selectContainer}
@@ -920,15 +920,6 @@ export default function EventOrganizerScreen() {
             </TouchableOpacity>
           </Animatable.View>
         </ScrollView>
-
-        {/* Bottom section with crowd silhouette */}
-        <View style={styles.crowdImageContainer}>
-          <Image
-            source={require("../assets/images/crowd.png")}
-            style={styles.crowdImage}
-            resizeMode="cover"
-          />
-        </View>
       </LinearGradient>
 
       {/* Custom Alert */}
@@ -1012,11 +1003,11 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginBottom: 20,
-    marginLeft: 30,
-    marginRight: 30,
+    marginLeft: 20,
+    marginRight: 20,
   },
   label: {
-    color: "white",
+    color: "black",
     fontSize: 16,
     marginBottom: 5,
     marginLeft: 25,
@@ -1272,20 +1263,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  crowdImageContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 100,
-    overflow: "hidden",
-    zIndex: -1,
-  },
-  crowdImage: {
-    width: "100%",
-    height: "100%",
-    opacity: 0.2,
   },
 });
 

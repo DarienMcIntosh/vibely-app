@@ -174,7 +174,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
       <StatusBar barStyle="light-content" backgroundColor="#1E1E1E" />
-      <LinearGradient colors={["#3E0F00", "#000000"]} style={{ flex: 1 }}>
+      <LinearGradient colors={["#3F0F00", "#000000"]} style={{ flex: 1 }}>
         {/* Header */}
         <View
           style={{
@@ -374,7 +374,7 @@ export default function HomeScreen() {
           >
             <Image
               source={require("../assets/images/home.png")}
-              style={{ width: 24, height: 24, tintColor: "#FF5722" }}
+              style={{ width: 24, height: 24, tintColor: "#FF9800" }}
             />
           </TouchableOpacity>
           <TouchableOpacity

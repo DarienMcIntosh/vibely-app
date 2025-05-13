@@ -26,7 +26,7 @@ type RootStackParamList = {
   RSVP: { event: Event };
 };
 
-export default function TrendingScreen() {
+export default function OrganizerHome() {
   // Type the navigation to ensure proper type checking
   const navigation = useNavigation<any>();
   const [commentModalVisible, setCommentModalVisible] = useState(false);
@@ -87,7 +87,12 @@ export default function TrendingScreen() {
     },
   ]);
 
-  const refreshTrending = () => {
+  // Sample user data
+  const user = {
+    name: "Vibely",
+  };
+
+  const refreshHome = () => {
     setRefreshing(true);
     // Simulate refresh with timeout
     setTimeout(() => {
@@ -151,14 +156,14 @@ export default function TrendingScreen() {
     alert(`Sharing ${event.title}`);
   };
 
-  // Function to navigate to Home screen
-  const navigateToHome = () => {
-    navigation.navigate("Home");
-  };
-
   // Function to navigate to Trending screen
   const navigateToTrending = () => {
     navigation.navigate("Trending");
+  };
+
+  // Function to navigate to Create Event screen
+  const navigateToCreateEvent = () => {
+    navigation.navigate("CreateEvent");
   };
 
   // Function to navigate to Map screen
@@ -189,7 +194,10 @@ export default function TrendingScreen() {
         >
           <View>
             <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
-              Trending
+              Hey, {user.name}!
+            </Text>
+            <Text style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: 14 }}>
+              Glad you're here! Ready to find some fun?
             </Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate("Search")}>
@@ -201,7 +209,7 @@ export default function TrendingScreen() {
         <ScrollView
           style={{ flex: 1 }}
           refreshing={refreshing}
-          onRefresh={refreshTrending}
+          onRefresh={refreshHome}
         >
           {events.map((event) => (
             <View
@@ -367,25 +375,34 @@ export default function TrendingScreen() {
         >
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={navigateToHome}
+            onPress={refreshHome}
           >
             <Image
               source={require("../assets/images/home.png")}
-              style={{ width: 24, height: 24 }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ flex: 1, alignItems: "center" }}
-            onPress={refreshTrending}
-          >
-            <Image
-              source={require("../assets/images/trending.png")}
               style={{ width: 24, height: 24, tintColor: "#FF9800" }}
             />
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => navigation.navigate("Map")}
+            onPress={navigateToTrending}
+          >
+            <Image
+              source={require("../assets/images/trending.png")}
+              style={{ width: 24, height: 24 }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ flex: 1, alignItems: "center" }}
+            onPress={navigateToCreateEvent}
+          >
+            <Image
+              source={require("../assets/images/event.png")}
+              style={{ width: 24, height: 24 }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ flex: 1, alignItems: "center" }}
+            onPress={navigateToMap}
           >
             <Image
               source={require("../assets/images/location.png")}
@@ -394,7 +411,7 @@ export default function TrendingScreen() {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flex: 1, alignItems: "center" }}
-            onPress={() => navigation.navigate("Profile")}
+            onPress={navigateToProfile}
           >
             <Image
               source={require("../assets/images/profile.png")}

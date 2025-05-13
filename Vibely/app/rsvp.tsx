@@ -112,7 +112,7 @@ export default function RSVPScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
       <StatusBar barStyle="light-content" backgroundColor="#1E1E1E" />
-      <LinearGradient colors={["#3E0F00", "#000000"]} style={{ flex: 1 }}>
+      <LinearGradient colors={["#3F0F00", "#000000"]} style={{ flex: 1 }}>
         {/* Header */}
         <View
           style={{

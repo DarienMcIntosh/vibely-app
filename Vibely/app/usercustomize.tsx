@@ -561,7 +561,7 @@ const UserCustomize = () => {
         {/* Back Button */}
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Ionicons name="arrow-back" size={24} color="white" />
-          <Text style={styles.timeText}>Create Profile</Text>
+          <Text style={styles.timeText}>Event-Goer Profile</Text>
         </TouchableOpacity>
 
         <ScrollView
@@ -593,7 +593,7 @@ const UserCustomize = () => {
           <View style={styles.formContainer}>
             {/* Name Field */}
             <Text style={styles.label}>
-              First Name: <Text style={styles.required}>*</Text>
+              First Name: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View
               animation="fadeIn"
@@ -613,7 +613,7 @@ const UserCustomize = () => {
             </Animatable.View>
 
             <Text style={styles.label}>
-              Last Name: <Text style={styles.required}>*</Text>
+              Last Name: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View
               animation="fadeIn"
@@ -635,7 +635,7 @@ const UserCustomize = () => {
 
             {/* Username Field */}
             <Text style={styles.label}>
-              Username: <Text style={styles.required}>*</Text>
+              Username: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View
               animation="fadeIn"
@@ -657,7 +657,7 @@ const UserCustomize = () => {
 
             {/* Country Dropdown - Using SearchableLocationDropdown */}
             <Text style={styles.label}>
-              Country: <Text style={styles.required}>*</Text>
+              Country: <Text style={styles.required}></Text>
             </Text>
             <Animatable.View animation="fadeIn" delay={300} duration={500}>
               <SearchableLocationDropdown
@@ -714,7 +714,7 @@ const UserCustomize = () => {
           >
             <Text style={styles.preferencesTitle}>
               What are your preferred events?{" "}
-              <Text style={styles.required}>*</Text>
+              <Text style={styles.required}></Text>
             </Text>
 
             <View style={styles.categoriesContainer}>
@@ -791,7 +791,7 @@ const styles = StyleSheet.create({
     top: 15,
     left: 15,
     zIndex: 10,
-    flexDirection: "row", // Added to align text beside the arrow
+    flexDirection: "row",
     alignItems: "center",
   },
   ScrollView: {
@@ -852,6 +852,8 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   label: {
     color: "black",
@@ -863,7 +865,7 @@ const styles = StyleSheet.create({
     color: "#ff0000",
   },
   inputContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
     borderRadius: 25,
     flexDirection: "row",
     alignItems: "center",
@@ -871,11 +873,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginLeft: 10,
     marginRight: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
   },
   input: {
     flex: 1,
@@ -887,7 +884,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   bioContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
     borderRadius: 15,
     padding: 10,
     marginBottom: 15,
@@ -895,11 +892,6 @@ const styles = StyleSheet.create({
     position: "relative",
     marginLeft: 10,
     marginRight: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
   },
   bioInput: {
     color: "#7d3a11",
@@ -919,18 +911,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dropdownButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
     borderRadius: 25,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 15,
     height: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
   },
   dropdownButtonText: {
     color: "#7d3a11",
@@ -1019,10 +1006,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   preferencesTitle: {
-    color: "white",
+    color: "black",
     fontSize: 18,
     marginBottom: 15,
     fontStyle: "italic",
+    textAlign: "center",
   },
   categoriesContainer: {
     flexDirection: "row",

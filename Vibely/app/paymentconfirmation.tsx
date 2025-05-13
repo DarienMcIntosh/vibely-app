@@ -29,7 +29,6 @@ export default function PaymentConfirmationScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1A0F0B" }}>
       <StatusBar barStyle="light-content" backgroundColor="#1A0F0B" />
-
       {/* Header */}
       <View
         style={{

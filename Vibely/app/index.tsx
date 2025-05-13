@@ -2,11 +2,15 @@ import { createStackNavigator } from "@react-navigation/stack"; // Import from t
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
 import { Image, View } from "react-native";
+import CreateEvent from "./createevent";
+import EditProfile from "./editprofile";
 import EventOrganizerScreen from "./eventorganizer";
 import HomeScreen from "./home";
 import LoginScreen from "./loginscreen";
 import Map from "./map";
+import OrganizerHome from "./organizerhome";
 import PaymentConfirmation from "./paymentconfirmation";
+import Profile from "./profile";
 import RSVP from "./rsvp";
 import SelectUser from "./selectuser";
 import SignupScreen from "./signup";
@@ -33,7 +37,7 @@ function App() {
 
   return (
     <Stack.Navigator
-      initialRouteName="RSVP"
+      initialRouteName="OrganizerHome"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -50,6 +54,10 @@ function App() {
         name="PaymentConfirmation"
         component={PaymentConfirmation}
       />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="OrganizerHome" component={OrganizerHome} />
+      <Stack.Screen name="CreateEvent" component={CreateEvent} />
     </Stack.Navigator>
   );
 }
