@@ -23,3 +23,4 @@ class User(Base):
 
     organizer = relationship("Organizer", back_populates="user", uselist=False)
     interactions = relationship("EventInteraction", back_populates="user", cascade="all, delete-orphan")
+    profile = relationship("UserProfile", backref="user", uselist=False)

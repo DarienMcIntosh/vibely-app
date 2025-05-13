@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes import auth, profile, events, interactions
+from app.routes import auth, profile, events, interactions, fyp_routes, users
 from app.database import engine
 from app.models import user
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,6 +23,8 @@ app.include_router(auth.router)
 app.include_router(profile.router)
 app.include_router(events.router)
 app.include_router(interactions.router)
+app.include_router(fyp_routes.router)
+app.include_router(users.router)
 
 @app.get("/")
 def read_root():

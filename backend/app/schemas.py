@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Literal, Union
 from pydantic import BaseModel, EmailStr, Field
 from datetime import date, time, datetime
 
@@ -171,6 +171,117 @@ class FollowResponse(BaseModel):
     follower_ID: int
     following_ID: int
     created_At: datetime
+
+    class Config:
+        from_attributes = True
+
+class EventResponse(BaseModel):
+    event_ID: int
+    event_Name: str
+    event_Location: Optional[str]
+    event_Category: Optional[str]
+    event_Date: date
+    start_Time: time
+    end_Time: Optional[time]
+    is_Free: Optional[bool]
+    celebrity: Optional[str]
+    created_At: Optional[datetime]
+
+    class Config:
+        from_attributes = True  
+
+
+# -------------------- RSVP --------------------
+class RSVPRequest(BaseModel):
+    event_ID: int
+    rsvp_Status: Literal["confirmed", "cancelled", "pending"] = "confirmed"
+    note: Optional[str] = None
+    guest_Count: Optional[int] = 1
+
+class RSVPResponse(BaseModel):
+    rsvp_ID: int
+    user_ID: int
+    event_ID: int
+    rsvp_Status: str
+    note: Optional[str]
+    guest_Count: Optional[int]
+    created_At: datetime
+
+    class Config:
+        from_attributes = True
+
+# -------------------- Like --------------------
+class LikeRequest(BaseModel):
+    entity_ID: int
+    entity_Type: Literal["event", "comment"]
+
+class LikeResponse(BaseModel):
+    like_ID: int
+    user_ID: int
+    entity_ID: int
+    entity_Type: str
+    created_At: datetime
+
+    class Config:
+        from_attributes = True
+
+# -------------------- Save --------------------
+class SaveRequest(BaseModel):
+    event_ID: int
+    collection_Name: Optional[str] = None
+    entity_Type: Literal["event"] = "event"
+
+class SaveResponse(BaseModel):
+    save_ID: int
+    user_ID: int
+    event_ID: int
+    collection_Name: Optional[str]
+    entity_Type: str
+    created_At: datetime
+
+    class Config:
+        from_attributes = True
+
+# -------------------- Comment --------------------
+class CommentCreateRequest(BaseModel):
+    event_ID: int
+    content: str = Field(..., min_length=1)
+
+class CommentResponse(BaseModel):
+    comment_ID: int
+    user_ID: int
+    event_ID: int
+    content: str
+    created_At: datetime
+
+    class Config:
+        from_attributes = True
+
+# -------------------- Share --------------------
+class ShareRequest(BaseModel):
+    event_ID: int
+
+class ShareResponse(BaseModel):
+    share_ID: int
+    user_ID: int
+    event_ID: int
+    created_At: datetime
+
+    class Config:
+        from_attributes = True
+
+# -------------------- Public Profile --------------------
+class PublicUserProfileResponse(BaseModel):
+    user_ID: int
+    username: Optional[str]
+    display_name: Optional[str]
+    bio: Optional[str]
+    profile_picture_url: Optional[str]
+    joined: Optional[datetime] = None
+    location: Optional[str] = None
+    event_count: Optional[int] = 0
+    follower_count: Optional[int] = 0
+    trust_score: Optional[int] = 0
 
     class Config:
         from_attributes = True

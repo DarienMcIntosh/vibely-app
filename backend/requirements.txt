@@ -10,3 +10,5 @@ python_jose==3.4.0
 Requests==2.32.3
 SQLAlchemy==2.0.40
 selenium
+pymsql
+tensorflow
