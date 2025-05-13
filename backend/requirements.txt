@@ -1,0 +1,12 @@
+fastapi==0.115.12
+firebase_admin==6.8.0
+passlib==1.7.4
+Pillow==11.2.1
+#playwright==1.52.0
+pydantic==2.11.4
+pytesseract==0.3.13
+python-dotenv==1.1.0
+python_jose==3.4.0
+Requests==2.32.3
+SQLAlchemy==2.0.40
+selenium

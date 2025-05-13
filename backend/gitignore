@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+
+.vscode/
+.idea/
+
+firebase/*.json
+
+temp_uploads/
+
+__pycache__/
+*.pyc
